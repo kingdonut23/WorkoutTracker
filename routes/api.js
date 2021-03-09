@@ -1,39 +1,38 @@
-const models = require("../models");
+const models = require("../models/");
+const router = require("express").Router();
 
 
+module.exports = function (router) {
 
-module.exports = function (app) {
-
-  app.get("/api/workouts", function (req, res) {
-    models.Workout.find({})
-      .then(function (mongoWorkout) {
-        res.json(mongoWorkout);
-      }).catch(function (err) {
-        res.status(400).json(err);
-      });
-  });
-
-
-  app.post("/api/workouts", function (req, res) {
-    models.Workout.create(req.body)
-      .then(function (mongoWorkout) {
-        res.json(mongoWorkout);
-        console.log(mongoWorkout)
-      }).catch(function (err) {
-        res.status(400).json(err);
-      });
-  });
-
-  app.get("/api/range", function (req, res) {
-    models.Workout.aggregate([
-      { $addFields: { TotalDuration: { $sum: "excercises.duration" } } }
-    ]).then(function (mongoWorkout) {
-      res.json(mongoWorkout);
-      console.log(mongoWorkout)
-    }).catch(function (err) {
-      res.status(400).json(err);
+    router.post("/api/workouts", function (req, res) {
+        models.Workout.create(req.body)
+            .then(function (workout) {
+                res.json(workout);
+                console.log(workout)
+            }).catch(function (err) {
+                res.status(400).json(err);
+            });
     });
 
-  })
+    router.get("/api/workouts", function (req, res) {
+        models.Workout.find({})
+            .then(function (workout) {
+                res.json(workout);
+            }).catch(function (err) {
+                res.status(400).json(err);
+            });
+    });
+
+    router.get("/api/workouts/range", function (req, res) {
+        models.Workout.aggregate([
+            { $addFields: { TotalDuration: { $sum: "excercises.duration" } } }
+        ]).then(function (workout) {
+            res.json(workout);
+            console.log(workout)
+        }).catch(function (err) {
+            res.status(400).json(err);
+        });
+
+    })
 
 }
