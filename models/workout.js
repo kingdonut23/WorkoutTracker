@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const workout = new Schema ({
+const workoutSchema = new Schema ({
     exercise:{
         type: String,
         trim: true,
@@ -24,7 +24,7 @@ const workout = new Schema ({
     },
     
     sets:{
-        type: Number
+        type:Number
 
     },
     duration:{
@@ -35,7 +35,7 @@ const workout = new Schema ({
     distance:{
         type: Number
     },
-
+///can't decide if I want the day to exist in the array or out
     day:{
         type: Date, 
         default: Date.now
@@ -43,6 +43,6 @@ const workout = new Schema ({
 
 });
 
-const WorkoutFitness = mongoose.model("workout", workout);
+const workout = mongoose.model("workout", workoutSchema);
 
-module.exports = WorkoutFitness;
+module.exports = workout;

@@ -5,6 +5,7 @@ module.exports = function(app){
 
 
     app.get("/", function(req, res) {
+        // saving this incase it doesn't work "../public.index.html"
         res.sendFile(path.join(__dirname,  "../public/index.html"))
     });
 
