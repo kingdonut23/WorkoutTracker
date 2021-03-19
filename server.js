@@ -18,8 +18,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myFirstDatabase
 });
 
 // routes
-app.use(require("./routes/html.js")(app));
-app.use(require("./routes/api.js")(app)); 
+app.use(require("./routes/html.js"));
+app.use(require("./routes/api.js")); 
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
